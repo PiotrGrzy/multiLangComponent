@@ -3,7 +3,7 @@ import { pl, en } from '../data/data';
 import { SET_LANG } from './types';
 
 const INITIAL_STATE = {
-  content: { pl, en },
+  texts: { pl, en },
   currentLang: 'pl',
 };
 

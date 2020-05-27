@@ -1,15 +1,20 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import LangChanger from './components/LangChanger/LangChanger';
-import { LangContext } from './context/store';
+import NewsletterSection from './components/NewsletterSection/NewsletterSection';
+import AttentionSection from './components/AttentionSection/AttentionSection';
+import styled from 'styled-components';
+
+const StyledApp = styled.div`
+  padding: 2rem;
+`;
 
 function App() {
-  const { state } = useContext(LangContext);
   return (
-    <div className="App">
-      <div>App</div>
+    <StyledApp>
       <LangChanger />
-      <p>{state.currentLang}</p>
-    </div>
+      <NewsletterSection />
+      <AttentionSection />
+    </StyledApp>
   );
 }
 
