@@ -20,13 +20,13 @@ const Button = styled.button`
 `;
 
 const LangChanger = () => {
-  const { dispatch } = useContext(LangContext);
+  const langContext = useContext(LangContext);
   return (
     <div>
-      <Button onClick={() => dispatch({ type: 'SET_LANG', payload: 'pl' })}>
+      <Button onClick={() => langContext.setLang('pl')}>
         <img src={poland} alt="Polish flag" />
       </Button>
-      <Button onClick={() => dispatch({ type: 'SET_LANG', payload: 'en' })}>
+      <Button onClick={() => langContext.setLang('en')}>
         <img src={uk} alt="English flag" />
       </Button>
     </div>

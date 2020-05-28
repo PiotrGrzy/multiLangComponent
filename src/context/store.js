@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react';
+import reducer from './reducer';
 import { pl, en } from '../data/data';
 import { SET_LANG } from './types';
 
@@ -7,23 +8,17 @@ const INITIAL_STATE = {
   currentLang: 'pl',
 };
 
-const LangContext = createContext(INITIAL_STATE);
+const LangContext = createContext();
 const { Provider } = LangContext;
 
 const StateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer((state, action) => {
-    switch (action.type) {
-      case SET_LANG:
-        return {
-          ...state,
-          currentLang: action.payload,
-        };
-      default:
-        return state;
-    }
-  }, INITIAL_STATE);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  return <Provider value={{ state, dispatch }}>{children}</Provider>;
+  const setLang = (lang) => {
+    dispatch({ type: SET_LANG, payload: lang });
+  };
+
+  return <Provider value={{ state, setLang }}>{children}</Provider>;
 };
 
 export { LangContext, StateProvider };
