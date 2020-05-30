@@ -11,14 +11,15 @@ const responseMocks = {
   error500: 'Internal Server Error',
   upload: 'upload success',
   successQuery: [{ id: 2, price: 100, name: 'shorts' }],
-  timeout: 'connection timedout',
+  timeout: 'Request Timeout',
 };
+
 mock.onGet('/next?q=error').reply(200, responseMocks.success);
 mock.onGet('/error404').reply(404, responseMocks.error404);
 mock.onGet('/error500').reply(500, responseMocks.error500);
 mock.onPost('/file').reply(204, responseMocks.upload);
 mock.onGet('/withquery?price=100').reply(200, responseMocks.successQuery);
-mock.onGet('/timedout').timeout();
+mock.onGet('/timedout').reply(408, responseMocks.timeout);
 
 describe('request function', () => {
   it('makes a valid get request to /next?q=error', async () => {
@@ -92,7 +93,8 @@ describe('request function', () => {
     try {
       const response = await request('/timedout');
     } catch (err) {
-      console.log(err.response);
+      expect(err.status).toEqual(408);
+      expect(err.data).toEqual(responseMocks.timeout);
     }
   });
 });
